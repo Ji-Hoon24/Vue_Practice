@@ -7,6 +7,60 @@
     <title>Vue.js Practice</title>
 </head>
 <body>
-    
+    <div id="app">
+      {{ test }}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          test: 'Hello Vue.js!'
+        },
+        beforeCreate: function() {
+          console.log("beforeCreate");
+        },
+        created: function() {
+          console.log("created");
+        },
+        mounted: function() {
+          console.log("mounted");
+          this.test = 'Hello, Vue!';
+        },
+        updated: function() {
+          console.log("updated");
+        }
+      });
+    </script>
+    <div id="app2">
+      <button>컴포넌트 등록</button>
+      <my-component></my-component>
+    </div>
+    <script>
+      Vue.component('my-component', {
+        template: '<div>전역 컴포넌트가 등록되었습니다.</div>'
+      });
+
+      new Vue({
+        el: '#app2'
+      });
+    </script>
+
+    <div id="app3">
+      <button>컴포넌트 등록2</button>
+      <my-local-component>Test</my-local-component>
+    </div>
+    <script>
+      var cmp = {
+        template: '<div>지역 컴포넌트가 등록되었습니다!</div>'
+      }
+
+      new Vue({
+        el: '#app3',
+        components: {
+          'my-local-component': cmp
+        }
+      });
+    </script>
 </body>
 </html>
